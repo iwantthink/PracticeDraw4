@@ -33,7 +33,7 @@ public class Practice09MatrixRotateView extends View {
 
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
-//        setLayerType(LAYER_TYPE_SOFTWARE, null);
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
 
     @Override
@@ -45,6 +45,8 @@ public class Practice09MatrixRotateView extends View {
         canvas.setMatrix(matrix);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
         canvas.restore();
+
+
         canvas.save();
         matrix.reset();
         matrix.postRotate(45, bitmap.getWidth() / 2 + point2.x, bitmap.getHeight() / 2 + point2.y);

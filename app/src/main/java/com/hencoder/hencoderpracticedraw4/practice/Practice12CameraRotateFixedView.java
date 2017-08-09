@@ -3,8 +3,11 @@ package com.hencoder.hencoderpracticedraw4.practice;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -17,6 +20,8 @@ public class Practice12CameraRotateFixedView extends View {
     Bitmap bitmap;
     Point point1 = new Point(200, 200);
     Point point2 = new Point(600, 200);
+    Camera mCamera = new Camera();
+    Path mPath = new Path();
 
     public Practice12CameraRotateFixedView(Context context) {
         super(context);
@@ -24,6 +29,7 @@ public class Practice12CameraRotateFixedView extends View {
 
     public Practice12CameraRotateFixedView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
     }
 
     public Practice12CameraRotateFixedView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -32,13 +38,55 @@ public class Practice12CameraRotateFixedView extends View {
 
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+//        setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        mPath.lineTo(0, getHeight());
+        mPath.lineTo(getWidth(), getHeight());
+        mPath.lineTo(getWidth(), 0);
+        mPath.close();
+        paint.setStyle(Paint.Style.STROKE);
+
+
+//        paint.setColor(Color.RED);
+//        canvas.drawLine(0, 0, 100, 0, paint);
+//        canvas.save();
+//        canvas.translate(100, 0);
+//        canvas.rotate(45, 0, 0);
+//        canvas.drawBitmap(bitmap, 0, 0, paint);
+//        canvas.drawPath(mPath, paint);
+//        canvas.restore();
+
+
+//        paint.setColor(Color.GREEN);
+//        canvas.save();
+//        canvas.rotate(45, 0, 0);
+//        canvas.translate(100, 0);
+//        canvas.drawBitmap(bitmap, 0, 0, paint);
+//        canvas.drawPath(mPath, paint);
+//        canvas.restore();
+
+
+        paint.setColor(Color.BLACK);
+        canvas.save();
+        mCamera.save();
+        mCamera.rotateX(45);
+        canvas.translate(200 + bitmap.getWidth() / 2, 200 + bitmap.getHeight() / 2);
+        canvas.drawPath(mPath, paint);
+        mCamera.applyToCanvas(canvas);
+        canvas.translate(-200 - bitmap.getWidth() / 2, -200 - bitmap.getHeight() / 2);
+        paint.setColor(Color.BLUE);
+        canvas.drawPath(mPath, paint);
+        mCamera.restore();
 
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
     }
 }

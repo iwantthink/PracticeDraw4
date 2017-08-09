@@ -18,6 +18,7 @@ public class Practice11CameraRotateView extends View {
     Bitmap bitmap;
     Point point1 = new Point(200, 200);
     Point point2 = new Point(600, 200);
+    Camera camera = new Camera();
 
     public Practice11CameraRotateView(Context context) {
         super(context);
@@ -39,7 +40,7 @@ public class Practice11CameraRotateView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
-        Camera camera = new Camera();
+
         camera.save();
         camera.rotateX(15);
         camera.applyToCanvas(canvas);
@@ -48,7 +49,7 @@ public class Practice11CameraRotateView extends View {
         canvas.restore();
 
         canvas.save();
-        camera = new Camera();
+
         float y1 = -(point2.y + bitmap.getHeight() / 2);
         float y2 = y1 / 576f;
 
@@ -64,4 +65,5 @@ public class Practice11CameraRotateView extends View {
         camera.restore();
         canvas.restore();
     }
+
 }
