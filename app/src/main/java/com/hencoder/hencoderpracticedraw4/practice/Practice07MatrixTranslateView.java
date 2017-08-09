@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
@@ -32,13 +33,31 @@ public class Practice07MatrixTranslateView extends View {
 
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+//        setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        canvas.drawLine(200, 200, getWidth(), 200, paint);
+        canvas.drawLine(200, 200, 200, getHeight(), paint);
+        canvas.save();
+        Matrix matrix = new Matrix();
+        float[] array = new float[9];
+//        matrix.getValues(array);
+//        for (float v : array) {
+//            Log.d("Practice07MatrixTransla", "v:" + v);
+//        }
+        matrix.preTranslate(-100, -100);
+        canvas.setMatrix(matrix);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        matrix.reset();
+        matrix.postTranslate(100, 100);
+        canvas.setMatrix(matrix);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }
