@@ -78,9 +78,11 @@ public class Sample14FlipboardView extends View {
         canvas.drawBitmap(bitmap, x, y, paint);
         canvas.restore();
 
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawRect(0, centerY, getWidth(), getHeight(), paint);
+        canvas.drawRect(0, 0, getWidth(), centerY, paint);
         // 第二遍绘制：下半部分
         canvas.save();
-
         if (degree < 90) {
             canvas.clipRect(0, centerY, getWidth(), getHeight());
         } else {

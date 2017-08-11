@@ -54,7 +54,7 @@ public class Practice12CameraRotateFixedView extends View {
 
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
-        setLayerType(LAYER_TYPE_SOFTWARE, null);
+        setLayerType(LAYER_TYPE_NONE, null);
     }
 
 
@@ -133,30 +133,29 @@ public class Practice12CameraRotateFixedView extends View {
 //        canvas.drawPoint(600, 200, paint);
 //        canvas.restore();
 //        canvas.drawBitmap(bitmap, 216 - bitmap.getWidth() / 2, 216 - bitmap.getHeight() / 2, paint);
-        canvas.save();
         mMatrix.reset();
+        int bWidth = bitmap.getWidth();
+        int bHeight = bitmap.getHeight();
 
-//        paint.setStrokeWidth(1);
-//        canvas.drawLine(144, 144, 144, getHeight(), paint);
-//        canvas.drawLine(144, 144, getWidth(), 144, paint);
-//        canvas.drawLine(0, 0, 500, 500, paint);
-        mCamera.getMatrix(mMatrix);
+        canvas.save();
         mCamera.save();
-//        mCamera.translate(216, -216, 0);
-//        float xx = (float) (bitmap.getWidth() / 2) / 72;
-//        mCamera.setLocation(xx, 0, -8);
-
-//        canvas.translate(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+        canvas.translate(bWidth / 2 + 200, bHeight / 2 + 200);
         mCamera.rotateX(45);
-//        mCamera.translate(-100, 0, 0);
         mCamera.applyToCanvas(canvas);
-//        canvas.translate(-bitmap.getWidth() / 2,- bitmap.getHeight() / 2);
+        canvas.translate(-bWidth / 2 - 200, -bHeight / 2 - 200);
         mCamera.restore();
+        canvas.drawBitmap(bitmap, 200, 200, paint);
+        canvas.restore();
 
-//        paint.setStyle(Paint.Style.FILL);
-//        canvas.drawCircle(0, 0, 50, paint);
-        canvas.drawBitmap(bitmap, 0, 0, paint);
-//        canvas.translate(500, 500);
+        canvas.save();
+        mCamera.save();
+        mCamera.rotateY(45);
+        canvas.translate(bWidth / 2 + 500, bHeight / 2 + 200);
+        mCamera.applyToCanvas(canvas);
+        canvas.translate(-bWidth / 2 - 500, -bHeight / 2 - 200);
+        mCamera.restore();
+        paint.setAlpha(255);
+        canvas.drawBitmap(bitmap, 500, 200, paint);
         canvas.restore();
 
 

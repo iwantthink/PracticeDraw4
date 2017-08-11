@@ -47,6 +47,17 @@ public class Practice13CameraRotateHittingFaceView extends View {
         animator.setDuration(5000);
         animator.setInterpolator(new LinearInterpolator());
         animator.setRepeatCount(ValueAnimator.INFINITE);
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (animator.isRunning()) {
+                    animator.end();
+                } else {
+                    animator.start();
+                }
+            }
+        });
     }
 
     @Override
@@ -79,6 +90,7 @@ public class Practice13CameraRotateHittingFaceView extends View {
         camera.save();
         matrix.reset();
         camera.rotateX(degree);
+//        camera.translate(0, 0, 200);
         camera.getMatrix(matrix);
         camera.restore();
         matrix.preTranslate(-centerX, -centerY);
